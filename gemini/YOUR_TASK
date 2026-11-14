@@ -1,0 +1,328 @@
+# Project: AC Circuit Analyzer
+
+You are an experienced C systems programmer and electrical engineering software developer.
+
+Your task is to develop a command-line application written entirely in C that performs electrical calculations involving alternating current (AC), voltage, resistance, impedance, and basic circuit analysis.
+
+The main objective is not simply to produce a working calculator. The objective is to implement the underlying mathematical logic from scratch, reinforcing knowledge of C programming, numerical methods, and electrical engineering.
+
+## 1. Fundamental programming restrictions
+
+This project must use C exclusively.
+
+Requirements:
+
+- Use C11 standard.
+- Do not use C++.
+- Do not use Python, scripting languages, or external programs to perform calculations.
+- Do not use math.h.
+- Do not use external mathematical libraries.
+- Do not use external plotting libraries.
+- Do not use third-party libraries.
+- Implement every mathematical operation required by the application manually.
+- Use standard C functionality only where necessary for memory management, input/output, and file handling.
+
+The program should be as close as reasonably possible to a freestanding C implementation.
+
+IMPORTANT: Do not confuse freestanding C with merely avoiding external libraries. Document which parts depend on the C standard library and which parts are implemented independently.
+
+## 2. Mathematical engine
+
+Create a dedicated mathematical module.
+
+Implement the following functions from scratch:
+
+- Absolute value.
+- Power/exponentiation.
+- Square root using Newton-Raphson or another numerical method.
+- Sine approximation.
+- Cosine approximation.
+- Tangent, if required.
+- Pi constant defined manually.
+- Degree-to-radian conversion.
+- Radian-to-degree conversion.
+- Floating-point comparison with configurable tolerance.
+- Factorial.
+- Taylor series evaluation.
+
+Avoid unnecessary approximations when a more numerically stable algorithm is appropriate.
+
+Each mathematical function must:
+- Have a clearly defined interface.
+- Include comments explaining its algorithm.
+- Handle invalid inputs where applicable.
+- Include tests covering normal and edge cases.
+
+Do not silently replace a manually implemented function with a compiler intrinsic or library function.
+
+## 3. AC waveform generator
+
+Implement a sinusoidal alternating-current waveform generator.
+
+The fundamental equation is:
+
+v(t) = Vpeak * sin(2 * pi * f * t + phi)
+
+Where:
+
+- Vpeak: peak voltage.
+- f: frequency in Hz.
+- t: time in seconds.
+- phi: phase angle in radians.
+
+Allow the user to configure:
+
+- Peak voltage.
+- Frequency.
+- Initial phase.
+- Duration.
+- Sampling interval.
+
+Calculate and display:
+
+- Instantaneous voltage.
+- Instantaneous current.
+- Peak voltage.
+- Peak current.
+- RMS voltage.
+- RMS current.
+- Period.
+- Angular frequency.
+- Peak-to-peak voltage.
+
+For a purely resistive load, calculate current using Ohm's law.
+
+## 4. Electrical calculations
+
+Create an electrical calculations module.
+
+Implement:
+
+### Ohm's Law
+
+Calculate any missing variable among:
+
+- Voltage (V)
+- Current (A)
+- Resistance (Ω)
+
+### Electrical power
+
+Calculate:
+
+- Active power (W).
+- Apparent power (VA).
+- Reactive power (VAR).
+- Power factor.
+
+### AC circuit calculations
+
+Implement:
+
+- Capacitive reactance.
+- Inductive reactance.
+- Impedance.
+- RMS calculations.
+- Phase difference.
+- Series RLC circuit analysis.
+
+Use the appropriate equations and explain the physical meaning of each calculation.
+
+For RLC circuits, support:
+
+- Resistance (R).
+- Inductance (L).
+- Capacitance (C).
+- Frequency (f).
+
+Calculate:
+
+- XL.
+- XC.
+- Total impedance.
+- Current.
+- Phase angle.
+- Resonant frequency.
+
+Clearly distinguish between scalar impedance magnitude and complex impedance. If complex arithmetic is implemented, create a dedicated complex-number structure and implement its operations manually.
+
+## 5. Terminal waveform visualization
+
+The application must generate an ASCII waveform directly in the terminal.
+
+Example:
+
+       |
+   220 |       /
+       |      /  
+       |     /    
+     0 |----/------\----------/----
+       |             \      /
+       |              \    /
+  -220 |               \  /
+       |                \/
+       |
+       +----------------------------> Time
+
+The graph must be generated using the mathematical engine developed in this project.
+
+Allow the user to change:
+
+- Graph width.
+- Graph height.
+- Voltage scale.
+- Time interval.
+- Number of waveform cycles.
+
+Also implement an option to export sampled waveform data to a CSV file.
+
+## 6. Interactive command-line interface
+
+Create a simple terminal menu:
+
+1. AC waveform generator.
+2. Ohm's Law calculator.
+3. Electrical power calculator.
+4. Capacitive reactance calculator.
+5. Inductive reactance calculator.
+6. Series RLC circuit analyzer.
+7. AC waveform plotter.
+8. Mathematical functions test.
+9. Exit.
+
+Validate user input and prevent invalid numerical operations.
+
+Keep the interface simple and readable.
+
+## 7. Software architecture
+
+Organize the project into separate modules.
+
+Suggested structure:
+
+ac-circuit-analyzer/
+|
+|-- Makefile
+|-- README.md
+|
+|-- include/
+|   |-- math_engine.h
+|   |-- electrical.h
+|   |-- waveform.h
+|   |-- graph.h
+|
+|-- src/
+|   |-- main.c
+|   |-- math_engine.c
+|   |-- electrical.c
+|   |-- waveform.c
+|   |-- graph.c
+|
+|-- tests/
+    |-- test_math.c
+    |-- test_electrical.c
+    |-- test_waveform.c
+
+Use modular programming and clear interfaces.
+
+Avoid unnecessary abstraction, excessive pointer indirection, and complicated data structures.
+
+Prefer straightforward procedural C.
+
+## 8. Testing and numerical accuracy
+
+Implement a test suite.
+
+Test mathematical functions against known mathematical values.
+
+Examples:
+
+- sin(0) = 0
+- sin(pi/2) = 1
+- cos(0) = 1
+- sqrt(25) = 5
+- 2^10 = 1024
+
+Test electrical calculations against known values.
+
+Examples:
+
+- 12 V / 6 Ω = 2 A
+- 60 Hz period = approximately 0.016667 seconds
+- 220 V RMS corresponds to approximately 311.127 V peak.
+- A 100 Ω resistor connected to 10 V produces 0.1 A.
+
+Use tolerances when comparing floating-point values.
+
+Document the expected numerical accuracy of each mathematical algorithm.
+
+## 9. Development methodology
+
+Do not generate the entire project in one enormous code-generation step.
+
+Develop incrementally.
+
+Follow this order:
+
+Phase 1:
+Create the project structure, Makefile, and mathematical engine.
+
+Phase 2:
+Implement and test Ohm's Law and electrical power calculations.
+
+Phase 3:
+Implement sinusoidal waveform generation.
+
+Phase 4:
+Implement ASCII plotting.
+
+Phase 5:
+Implement inductive and capacitive reactance.
+
+Phase 6:
+Implement series RLC analysis.
+
+Phase 7:
+Implement the interactive interface.
+
+Phase 8:
+Perform integration testing, fix bugs, and improve documentation.
+
+After each phase:
+
+1. Compile the project.
+2. Execute relevant tests.
+3. Fix compilation warnings.
+4. Explain the implementation.
+5. Wait for my approval before moving to the next phase.
+
+## 10. Educational requirements
+
+This is primarily a learning project.
+
+I want to understand how the software works, not simply receive generated source code.
+
+Whenever you implement a mathematical function, explain:
+
+- The mathematical principle behind it.
+- Why the chosen algorithm works.
+- Its numerical limitations.
+- How the corresponding C implementation works.
+
+Whenever you implement an electrical calculation, explain the relationship between the physical quantities.
+
+Do not unnecessarily optimize code at the expense of readability.
+
+Do not hide mathematical operations behind abstractions.
+
+Do not assume I understand advanced numerical methods.
+
+Explain concepts progressively.
+
+## Final objective
+
+Deliver a functional command-line AC circuit analyzer written in C, with its own mathematical engine, electrical calculation modules, waveform generation, ASCII visualization, and automated tests.
+
+The entire mathematical and electrical calculation logic must be implemented manually.
+
+The program must compile and run on a standard Linux environment using GCC or Clang.
